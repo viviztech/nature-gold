@@ -7,6 +7,7 @@ use App\Enums\TamilNaduDistrict;
 use App\Enums\UserRole;
 use App\Filament\Resources\DealerResource\Pages;
 use App\Models\Dealer;
+use App\Services\Notification\NotificationService;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Notifications\Notification;
@@ -187,6 +188,9 @@ class DealerResource extends Resource
                             ->title('Dealer approved successfully')
                             ->success()
                             ->send();
+
+                        // Send WhatsApp + Email notification to dealer
+                        app(NotificationService::class)->dealerApproved($record);
                     }),
 
                 Tables\Actions\Action::make('reject')
@@ -209,6 +213,9 @@ class DealerResource extends Resource
                             ->title('Dealer application rejected')
                             ->warning()
                             ->send();
+
+                        // Send WhatsApp + Email notification to dealer
+                        app(NotificationService::class)->dealerRejected($record);
                     }),
 
                 Tables\Actions\EditAction::make(),

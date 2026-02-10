@@ -5,10 +5,14 @@ namespace App\Services;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
+use App\Services\Notification\NotificationService;
 use Illuminate\Support\Facades\DB;
 
 class OrderService
 {
+    public function __construct(
+        protected NotificationService $notificationService,
+    ) {}
     /**
      * Transition order to a new status with validation.
      */
@@ -45,8 +49,32 @@ class OrderService
                 $this->restoreStock($order);
             }
 
+            // Send notifications based on new status
+            $this->sendStatusNotification($order, $newStatus);
+
             return true;
         });
+    }
+
+    /**
+     * Send notification for order status change.
+     */
+    protected function sendStatusNotification(Order $order, OrderStatus $status): void
+    {
+        try {
+            match ($status) {
+                OrderStatus::Confirmed => $this->notificationService->orderConfirmed($order),
+                OrderStatus::Shipped => $this->notificationService->orderShipped($order),
+                OrderStatus::Delivered => $this->notificationService->orderDelivered($order),
+                default => null,
+            };
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Order notification failed', [
+                'order' => $order->id,
+                'status' => $status->value,
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**

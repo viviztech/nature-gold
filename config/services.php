@@ -48,4 +48,24 @@ return [
         'env' => env('PHONEPE_ENV', 'sandbox'),
     ],
 
+    'whatsapp' => [
+        'access_token' => env('WHATSAPP_ACCESS_TOKEN'),
+        'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
+        'business_account_id' => env('WHATSAPP_BUSINESS_ACCOUNT_ID'),
+        'verify_token' => env('WHATSAPP_VERIFY_TOKEN'),
+    ],
+
+    'sms' => [
+        'provider' => env('SMS_PROVIDER', 'log'), // log, msg91, twilio
+        'msg91' => [
+            'auth_key' => env('MSG91_AUTH_KEY'),
+            'template_id' => env('MSG91_TEMPLATE_ID'),
+        ],
+        'twilio' => [
+            'sid' => env('TWILIO_SID'),
+            'token' => env('TWILIO_AUTH_TOKEN'),
+            'from' => env('TWILIO_FROM'),
+        ],
+    ],
+
 ];

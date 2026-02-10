@@ -6,10 +6,14 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
+use App\Services\Notification\NotificationService;
 use InvalidArgumentException;
 
 class PaymentService
 {
+    public function __construct(
+        protected NotificationService $notificationService,
+    ) {}
     /**
      * Resolve the payment gateway for a given method.
      */
@@ -82,6 +86,10 @@ class PaymentService
             // Decrement stock
             $this->decrementStock($order);
 
+            // Send notifications
+            $this->notificationService->paymentReceived($order);
+            $this->notificationService->orderConfirmed($order);
+
             return true;
         }
 
@@ -126,6 +134,9 @@ class PaymentService
 
         // Decrement stock
         $this->decrementStock($order);
+
+        // Send order confirmed notification for COD
+        $this->notificationService->orderConfirmed($order);
 
         return true;
     }

@@ -190,4 +190,26 @@ return [
     'order_shipped' => 'Shipped',
     'order_delivered' => 'Delivered',
     'order_cancelled' => 'Cancelled',
+
+    // OTP
+    'otp_message' => ':otp is your OTP for :app. Do not share this with anyone. Valid for 10 minutes.',
+    'otp_sent' => 'OTP sent successfully to your phone number.',
+    'otp_verified' => 'Phone number verified successfully!',
+    'otp_invalid' => 'Invalid or expired OTP. Please try again.',
+    'verify_phone' => 'Verify Phone',
+    'enter_otp' => 'Enter OTP',
+    'resend_otp' => 'Resend OTP',
+
+    // Notifications
+    'notification_order_confirmed' => 'Your order has been confirmed',
+    'notification_order_shipped' => 'Your order has been shipped',
+    'notification_order_delivered' => 'Your order has been delivered',
+    'notification_payment_received' => 'Payment received',
+
+    // Account
+    'addresses' => 'Addresses',
+    'address_saved' => 'Address saved successfully.',
+    'address_deleted' => 'Address deleted successfully.',
+    'profile_updated' => 'Profile updated successfully.',
+    'password_updated' => 'Password updated successfully.',
 ];

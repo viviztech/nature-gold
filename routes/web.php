@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DealerController;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StorefrontController;
@@ -104,4 +105,15 @@ Route::get('/order/{order}/failed', [PaymentController::class, 'orderFailed'])->
 
 Route::middleware('auth')->group(function () {
     Route::get('/order/{order}/invoice', [AccountController::class, 'downloadInvoice'])->name('order.invoice');
+});
+
+/*
+|--------------------------------------------------------------------------
+| OTP Verification Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('throttle:5,1')->group(function () {
+    Route::post('/otp/send', [OtpController::class, 'send'])->name('otp.send');
+    Route::post('/otp/verify', [OtpController::class, 'verify'])->name('otp.verify');
 });

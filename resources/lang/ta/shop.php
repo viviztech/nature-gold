@@ -190,4 +190,26 @@ return [
     'order_shipped' => 'அனுப்பப்பட்டது',
     'order_delivered' => 'வழங்கப்பட்டது',
     'order_cancelled' => 'ரத்து செய்யப்பட்டது',
+
+    // OTP
+    'otp_message' => ':otp என்பது :app க்கான உங்கள் OTP. இதை யாருடனும் பகிர வேண்டாம். 10 நிமிடங்கள் செல்லுபடியாகும்.',
+    'otp_sent' => 'OTP உங்கள் தொலைபேசி எண்ணுக்கு வெற்றிகரமாக அனுப்பப்பட்டது.',
+    'otp_verified' => 'தொலைபேசி எண் வெற்றிகரமாக சரிபார்க்கப்பட்டது!',
+    'otp_invalid' => 'தவறான அல்லது காலாவதியான OTP. மீண்டும் முயற்சிக்கவும்.',
+    'verify_phone' => 'தொலைபேசி சரிபார்',
+    'enter_otp' => 'OTP உள்ளிடவும்',
+    'resend_otp' => 'OTP மீண்டும் அனுப்பு',
+
+    // Notifications
+    'notification_order_confirmed' => 'உங்கள் ஆர்டர் உறுதிசெய்யப்பட்டது',
+    'notification_order_shipped' => 'உங்கள் ஆர்டர் அனுப்பப்பட்டது',
+    'notification_order_delivered' => 'உங்கள் ஆர்டர் வழங்கப்பட்டது',
+    'notification_payment_received' => 'பணம் பெறப்பட்டது',
+
+    // Account
+    'addresses' => 'முகவரிகள்',
+    'address_saved' => 'முகவரி வெற்றிகரமாக சேமிக்கப்பட்டது.',
+    'address_deleted' => 'முகவரி வெற்றிகரமாக நீக்கப்பட்டது.',
+    'profile_updated' => 'சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது.',
+    'password_updated' => 'கடவுச்சொல் வெற்றிகரமாக புதுப்பிக்கப்பட்டது.',
 ];
