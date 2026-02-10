@@ -3,11 +3,13 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DealerController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StorefrontController;
 use App\Livewire\CartPage;
 use App\Livewire\CheckoutPage;
+use App\Livewire\DealerBulkOrder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +70,23 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
 Route::get('/dealer/register', function () {
     return view('pages.dealer-register');
 })->name('dealer.register');
+
+Route::post('/dealer/register', [DealerController::class, 'register'])->name('dealer.register.submit');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dealer/pending', [DealerController::class, 'pending'])->name('dealer.pending');
+});
+
+Route::middleware(['auth', 'dealer'])->prefix('dealer')->name('dealer.')->group(function () {
+    Route::get('/dashboard', [DealerController::class, 'dashboard'])->name('dashboard');
+    Route::get('/catalog', [DealerController::class, 'catalog'])->name('catalog');
+    Route::get('/place-order', DealerBulkOrder::class)->name('place-order');
+    Route::get('/orders', [DealerController::class, 'orders'])->name('orders');
+    Route::get('/orders/{order}', [DealerController::class, 'orderDetail'])->name('orders.show');
+    Route::get('/orders/{order}/invoice', [DealerController::class, 'downloadInvoice'])->name('orders.invoice');
+    Route::get('/profile', [DealerController::class, 'profile'])->name('profile');
+    Route::put('/profile', [DealerController::class, 'updateProfile'])->name('profile.update');
+});
 
 /*
 |--------------------------------------------------------------------------

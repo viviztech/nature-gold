@@ -7,7 +7,17 @@
         </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-            <form method="POST" action="{{ route('dealer.register') }}" enctype="multipart/form-data">
+            @if($errors->any())
+                <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                    <ul class="list-disc pl-4 space-y-1">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('dealer.register.submit') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>

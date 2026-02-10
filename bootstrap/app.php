@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'payment/phonepe/webhook',
             'payment/phonepe/*/callback',
         ]);
+
+        $middleware->alias([
+            'dealer' => \App\Http\Middleware\EnsureDealer::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

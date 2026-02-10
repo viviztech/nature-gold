@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\DealerStatus;
 use App\Enums\TamilNaduDistrict;
+use App\Enums\UserRole;
 use App\Filament\Resources\DealerResource\Pages;
 use App\Models\Dealer;
 use Filament\Forms;
@@ -177,6 +178,11 @@ class DealerResource extends Resource
                             'approved_at' => now(),
                         ]);
 
+                        // Ensure user has dealer role
+                        if ($record->user && $record->user->role !== UserRole::Dealer) {
+                            $record->user->update(['role' => UserRole::Dealer]);
+                        }
+
                         Notification::make()
                             ->title('Dealer approved successfully')
                             ->success()
@@ -212,7 +218,9 @@ class DealerResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            DealerResource\RelationManagers\SpecialPricingRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
