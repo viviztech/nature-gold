@@ -10,7 +10,7 @@ use App\Models\Product;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.app')]
+#[Layout('components.layouts.app')]
 class DealerBulkOrder extends Component
 {
     public array $items = [];

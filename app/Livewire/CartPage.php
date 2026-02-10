@@ -7,7 +7,7 @@ use App\Models\Coupon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.app')]
+#[Layout('components.layouts.app')]
 class CartPage extends Component
 {
     public ?Cart $cart = null;
