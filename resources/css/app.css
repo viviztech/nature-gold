@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    /* Nature Gold Brand Colors */
+    --color-gold: #D4A017;
+    --color-gold-50: #FFF9E6;
+    --color-gold-100: #FFF0BF;
+    --color-gold-200: #FFE599;
+    --color-gold-300: #FFD966;
+    --color-gold-400: #F5C842;
+    --color-gold-500: #D4A017;
+    --color-gold-600: #B8860B;
+    --color-gold-700: #9A7209;
+    --color-gold-800: #7C5B07;
+    --color-gold-900: #5E4505;
+
+    --color-nature: #2D6A2E;
+    --color-nature-50: #E8F5E9;
+    --color-nature-100: #C8E6C9;
+    --color-nature-200: #A5D6A7;
+    --color-nature-300: #81C784;
+    --color-nature-400: #66BB6A;
+    --color-nature-500: #4CAF50;
+    --color-nature-600: #2D6A2E;
+    --color-nature-700: #1B5E20;
+    --color-nature-800: #145218;
+    --color-nature-900: #0D3B10;
+
+    --color-cream: #FFF8E7;
+    --color-cream-dark: #F5F0EB;
+    --color-warm-white: #FFFDF7;
+
+    /* Typography */
+    --font-heading: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-tamil: 'Noto Sans Tamil', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
