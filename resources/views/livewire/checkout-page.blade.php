@@ -247,7 +247,61 @@
                 </div>
             </form>
 
+            @if(session('payment_error'))
+                <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                    {{ session('payment_error') }}
+                </div>
+            @endif
+
         </div>
     </div>
+
+    {{-- Razorpay Checkout Script --}}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('open-razorpay', ({ options }) => {
+                const rzp = new Razorpay({
+                    key: options.key,
+                    amount: options.amount,
+                    currency: options.currency,
+                    name: options.name,
+                    description: options.description,
+                    order_id: options.order_id,
+                    prefill: options.prefill,
+                    theme: { color: '#D4A017' },
+                    handler: function(response) {
+                        // Submit payment details to callback URL
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = options.callback_url;
+
+                        const csrf = document.createElement('input');
+                        csrf.type = 'hidden';
+                        csrf.name = '_token';
+                        csrf.value = document.querySelector('meta[name="csrf-token"]').content;
+                        form.appendChild(csrf);
+
+                        ['razorpay_payment_id', 'razorpay_order_id', 'razorpay_signature'].forEach(key => {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = key;
+                            input.value = response[key];
+                            form.appendChild(input);
+                        });
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            // User closed the payment modal
+                        }
+                    }
+                });
+                rzp.open();
+            });
+        });
+    </script>
 
 </x-layouts.app>

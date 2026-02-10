@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StorefrontController;
 use App\Livewire\CartPage;
@@ -67,3 +68,21 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
 Route::get('/dealer/register', function () {
     return view('pages.dealer-register');
 })->name('dealer.register');
+
+/*
+|--------------------------------------------------------------------------
+| Payment Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/payment/razorpay/{order}/callback', [PaymentController::class, 'razorpayCallback'])->name('payment.razorpay.callback');
+Route::post('/payment/razorpay/webhook', [PaymentController::class, 'razorpayWebhook'])->name('payment.razorpay.webhook');
+Route::post('/payment/phonepe/{order}/callback', [PaymentController::class, 'phonePeCallback'])->name('payment.phonepe.callback');
+Route::post('/payment/phonepe/webhook', [PaymentController::class, 'phonePeWebhook'])->name('payment.phonepe.webhook');
+
+Route::get('/order/{order}/success', [PaymentController::class, 'orderSuccess'])->name('order.success');
+Route::get('/order/{order}/failed', [PaymentController::class, 'orderFailed'])->name('order.failed');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/order/{order}/invoice', [AccountController::class, 'downloadInvoice'])->name('order.invoice');
+});

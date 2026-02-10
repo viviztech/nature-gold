@@ -8,6 +8,7 @@ use App\Enums\PaymentStatus;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Services\Payment\PaymentService;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -46,6 +47,8 @@ class CheckoutPage extends Component
     public string $payment_method = 'razorpay';
 
     public ?Cart $cart = null;
+
+    public ?int $pendingOrderId = null;
 
     public function mount(): void
     {
@@ -140,6 +143,7 @@ class CheckoutPage extends Component
         $shippingAddress = [
             'name' => $this->name,
             'phone' => $this->phone,
+            'email' => $this->email,
             'line1' => $this->address_line1,
             'line2' => $this->address_line2,
             'city' => $this->city,
@@ -156,7 +160,7 @@ class CheckoutPage extends Component
             'tax' => $this->getTaxProperty(),
             'total' => $this->getTotalProperty(),
             'status' => OrderStatus::Pending,
-            'payment_status' => $this->payment_method === 'cod' ? PaymentStatus::Pending : PaymentStatus::Pending,
+            'payment_status' => PaymentStatus::Pending,
             'payment_method' => PaymentMethod::from($this->payment_method),
             'shipping_address' => $shippingAddress,
             'coupon_code' => $this->cart->coupon_code,
@@ -194,12 +198,54 @@ class CheckoutPage extends Component
         // Clear cart
         $this->cart->items()->delete();
         $this->cart->delete();
-
         $this->dispatch('cart-updated');
 
-        session()->flash('order_success', $order->order_number);
+        /** @var PaymentService $paymentService */
+        $paymentService = app(PaymentService::class);
 
+        match ($this->payment_method) {
+            'cod' => $this->handleCodPayment($paymentService, $order),
+            'razorpay' => $this->handleRazorpayPayment($paymentService, $order),
+            'phonepe' => $this->handlePhonePePayment($paymentService, $order),
+        };
+    }
+
+    protected function handleCodPayment(PaymentService $paymentService, Order $order): void
+    {
+        $paymentService->handleCod($order);
+
+        session()->flash('order_success', $order->order_number);
         $this->redirect(route('order.success', $order));
+    }
+
+    protected function handleRazorpayPayment(PaymentService $paymentService, Order $order): void
+    {
+        $result = $paymentService->initiate($order);
+
+        $this->pendingOrderId = $order->id;
+
+        $this->dispatch('open-razorpay', options: [
+            'key' => $result['razorpay_key'],
+            'amount' => $result['amount'],
+            'currency' => $result['currency'],
+            'name' => $result['name'],
+            'description' => $result['description'],
+            'order_id' => $result['razorpay_order_id'],
+            'prefill' => $result['prefill'],
+            'callback_url' => route('payment.razorpay.callback', $order),
+        ]);
+    }
+
+    protected function handlePhonePePayment(PaymentService $paymentService, Order $order): void
+    {
+        $result = $paymentService->initiate($order);
+
+        if ($result['success'] ?? false) {
+            $this->redirect($result['redirect_url']);
+        } else {
+            $order->update(['payment_status' => PaymentStatus::Failed]);
+            session()->flash('payment_error', $result['error'] ?? __('shop.payment_failed_message'));
+        }
     }
 
     public function render()

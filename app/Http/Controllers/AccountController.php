@@ -6,6 +6,7 @@ use App\Models\Address;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Wishlist;
+use App\Services\InvoiceService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -136,6 +137,16 @@ class AccountController extends Controller
         $user->update($validated);
 
         return redirect()->route('account.profile')->with('success', __('shop.profile_updated'));
+    }
+
+    /**
+     * Download invoice PDF for an order.
+     */
+    public function downloadInvoice(Order $order, InvoiceService $invoiceService)
+    {
+        abort_unless($order->user_id === auth()->id(), 403);
+
+        return $invoiceService->download($order);
     }
 
     /**

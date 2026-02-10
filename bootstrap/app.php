@@ -14,6 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
+
+        $middleware->validateCsrfTokens(except: [
+            'payment/razorpay/webhook',
+            'payment/phonepe/webhook',
+            'payment/phonepe/*/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
