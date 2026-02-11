@@ -68,6 +68,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'oils',
             'description_en' => 'Pure and natural cold-pressed oils',
             'description_ta' => 'தூய்மையான இயற்கை செக்கு எண்ணெய்கள்',
+            'image' => 'categories/oils.jpg',
             'is_active' => true,
             'is_featured' => true,
             'sort_order' => 1,
@@ -79,6 +80,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'spices',
             'description_en' => 'Fresh and aromatic spices',
             'description_ta' => 'புதிய மற்றும் நறுமணமுள்ள மசாலா பொருட்கள்',
+            'image' => 'categories/spices.jpg',
             'is_active' => true,
             'is_featured' => true,
             'sort_order' => 2,
@@ -90,6 +92,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'seeds',
             'description_en' => 'Premium quality seeds',
             'description_ta' => 'உயர்தர விதைகள்',
+            'image' => 'categories/seeds.jpg',
             'is_active' => true,
             'is_featured' => true,
             'sort_order' => 3,
@@ -101,6 +104,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'honey-natural-products',
             'description_en' => 'Pure honey and natural food products',
             'description_ta' => 'தூய தேன் மற்றும் இயற்கை உணவுப் பொருட்கள்',
+            'image' => 'categories/honey.jpg',
             'is_active' => true,
             'is_featured' => true,
             'sort_order' => 4,
@@ -112,6 +116,7 @@ class DatabaseSeeder extends Seeder
             'name_ta' => 'கடலை எண்ணெய்',
             'slug' => 'groundnut-oil',
             'parent_id' => $oils->id,
+            'image' => 'categories/groundnut-oil.jpg',
             'is_active' => true,
             'sort_order' => 1,
         ]);
@@ -121,6 +126,7 @@ class DatabaseSeeder extends Seeder
             'name_ta' => 'நல்லெண்ணெய்',
             'slug' => 'sesame-oil',
             'parent_id' => $oils->id,
+            'image' => 'categories/sesame-oil.jpg',
             'is_active' => true,
             'sort_order' => 2,
         ]);
@@ -130,6 +136,7 @@ class DatabaseSeeder extends Seeder
             'name_ta' => 'தேங்காய் எண்ணெய்',
             'slug' => 'coconut-oil',
             'parent_id' => $oils->id,
+            'image' => 'categories/coconut-oil.jpg',
             'is_active' => true,
             'sort_order' => 3,
         ]);
@@ -317,6 +324,28 @@ class DatabaseSeeder extends Seeder
                     'stock' => 200,
                     'weight' => '500g',
                     'sort_order' => 3,
+                ]);
+            }
+        }
+
+        // Product Images
+        $productImages = [
+            'cold-pressed-groundnut-oil' => 'products/groundnut-oil-1.jpg',
+            'cold-pressed-sesame-oil' => 'products/sesame-oil-1.jpg',
+            'virgin-coconut-oil' => 'products/coconut-oil-1.jpg',
+            'cold-pressed-mustard-oil' => 'products/mustard-oil-1.jpg',
+            'premium-turmeric-powder' => 'products/turmeric-1.jpg',
+            'white-sesame-seeds' => 'products/sesame-seeds-1.jpg',
+        ];
+
+        foreach ($productImages as $slug => $imagePath) {
+            $product = Product::where('slug', $slug)->first();
+            if ($product) {
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $imagePath,
+                    'is_primary' => true,
+                    'sort_order' => 1,
                 ]);
             }
         }
