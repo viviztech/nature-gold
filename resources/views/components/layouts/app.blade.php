@@ -16,6 +16,18 @@
         :json-ld="$jsonLd ?? null"
     />
 
+    {{-- DNS Prefetch --}}
+    <link rel="dns-prefetch" href="https://checkout.razorpay.com">
+    <link rel="dns-prefetch" href="https://api.whatsapp.com">
+
+    {{-- PWA --}}
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#D4A017">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Nature Gold">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +36,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles
+
+    {{-- Analytics --}}
+    <x-analytics />
 </head>
 <body class="bg-warm-white text-gray-800 font-sans antialiased">
     {{-- Announcement Bar --}}
@@ -47,5 +62,14 @@
     <x-whatsapp-button />
 
     @livewireScripts
+
+    {{-- Service Worker Registration --}}
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 </html>

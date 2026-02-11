@@ -26,7 +26,7 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/product/{slug}', [ShopController::class, 'show'])->name('product.show');
 Route::get('/about', [StorefrontController::class, 'about'])->name('about');
 Route::get('/contact', [StorefrontController::class, 'contact'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.submit');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,60')->name('contact.submit');
 Route::get('/page/{slug}', [StorefrontController::class, 'page'])->name('page.show');
 
 // Cart & Checkout
@@ -41,9 +41,9 @@ Route::get('/checkout', CheckoutPage::class)->name('checkout');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,15');
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:3,15');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
@@ -74,7 +74,7 @@ Route::get('/dealer/register', function () {
     return view('pages.dealer-register');
 })->name('dealer.register');
 
-Route::post('/dealer/register', [DealerController::class, 'register'])->name('dealer.register.submit');
+Route::post('/dealer/register', [DealerController::class, 'register'])->middleware('throttle:3,60')->name('dealer.register.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dealer/pending', [DealerController::class, 'pending'])->name('dealer.pending');

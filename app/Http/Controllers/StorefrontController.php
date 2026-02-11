@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 
 class StorefrontController extends Controller
 {
@@ -18,29 +19,38 @@ class StorefrontController extends Controller
             'description' => __('shop.seo_home_description'),
             'url' => url('/'),
         ];
-        $banners = Banner::where('is_active', true)
-            ->where('position', 'hero')
-            ->where(fn ($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
-            ->where(fn ($q) => $q->whereNull('expires_at')->orWhere('expires_at', '>=', now()))
-            ->orderBy('sort_order')
-            ->get();
 
-        $categories = Category::active()->roots()->ordered()
-            ->withCount('products')
-            ->get();
+        $banners = Cache::remember('home:banners', 600, fn () =>
+            Banner::where('is_active', true)
+                ->where('position', 'hero')
+                ->where(fn ($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
+                ->where(fn ($q) => $q->whereNull('expires_at')->orWhere('expires_at', '>=', now()))
+                ->orderBy('sort_order')
+                ->get()
+        );
 
-        $featuredProducts = Product::where('is_active', true)
-            ->where('is_featured', true)
-            ->with(['primaryImage', 'category', 'variants'])
-            ->limit(8)
-            ->get();
+        $categories = Cache::remember('home:categories', 600, fn () =>
+            Category::active()->roots()->ordered()
+                ->withCount('products')
+                ->get()
+        );
 
-        $bestSellers = Product::where('is_active', true)
-            ->withCount('orderItems')
-            ->orderByDesc('order_items_count')
-            ->with(['primaryImage', 'category', 'variants'])
-            ->limit(8)
-            ->get();
+        $featuredProducts = Cache::remember('home:featured', 300, fn () =>
+            Product::where('is_active', true)
+                ->where('is_featured', true)
+                ->with(['primaryImage', 'category', 'variants'])
+                ->limit(8)
+                ->get()
+        );
+
+        $bestSellers = Cache::remember('home:bestsellers', 300, fn () =>
+            Product::where('is_active', true)
+                ->withCount('orderItems')
+                ->orderByDesc('order_items_count')
+                ->with(['primaryImage', 'category', 'variants'])
+                ->limit(8)
+                ->get()
+        );
 
         return view('pages.home', compact('banners', 'categories', 'featuredProducts', 'bestSellers', 'jsonLd'));
     }

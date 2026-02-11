@@ -35,6 +35,14 @@ return [
         ],
     ],
 
+    'google' => [
+        'analytics_id' => env('GOOGLE_ANALYTICS_ID'),
+    ],
+
+    'facebook' => [
+        'pixel_id' => env('FACEBOOK_PIXEL_ID'),
+    ],
+
     'razorpay' => [
         'key' => env('RAZORPAY_KEY_ID'),
         'secret' => env('RAZORPAY_KEY_SECRET'),
