@@ -46,6 +46,7 @@
                 <li><a href="{{ route('shop') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.nav_shop') }}</a></li>
                 <li><a href="{{ route('about') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.nav_about') }}</a></li>
                 <li><a href="{{ route('contact') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.nav_contact') }}</a></li>
+                <li><a href="{{ route('blog.index') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.nav_blog') }}</a></li>
                 <li><a href="{{ route('page.show', 'privacy-policy') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.privacy') }}</a></li>
                 <li><a href="{{ route('page.show', 'terms-conditions') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.terms') }}</a></li>
                 <li><a href="{{ route('page.show', 'refund-policy') }}" class="text-gray-300 hover:text-gold-400 transition">{{ __('shop.refund_policy') }}</a></li>

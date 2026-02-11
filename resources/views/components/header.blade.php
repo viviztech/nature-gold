@@ -60,6 +60,9 @@
                 <a href="{{ route('contact') }}" class="text-gray-700 hover:text-gold-600 transition {{ request()->routeIs('contact') ? 'text-gold-600' : '' }}">
                     {{ __('shop.nav_contact') }}
                 </a>
+                <a href="{{ route('blog.index') }}" class="text-gray-700 hover:text-gold-600 transition {{ request()->routeIs('blog.*') ? 'text-gold-600' : '' }}">
+                    {{ __('shop.nav_blog') }}
+                </a>
             </nav>
 
             {{-- Right Actions --}}
@@ -119,6 +122,7 @@
             </div>
             <a href="{{ route('about') }}" class="block py-2 text-gray-700 font-medium hover:text-gold-600">{{ __('shop.nav_about') }}</a>
             <a href="{{ route('contact') }}" class="block py-2 text-gray-700 font-medium hover:text-gold-600">{{ __('shop.nav_contact') }}</a>
+            <a href="{{ route('blog.index') }}" class="block py-2 text-gray-700 font-medium hover:text-gold-600">{{ __('shop.nav_blog') }}</a>
             @guest
                 <div class="pt-3 border-t border-gray-100 flex gap-3">
                     <a href="{{ route('login') }}" class="flex-1 text-center py-2 bg-gold-500 text-white rounded-lg font-medium text-sm hover:bg-gold-600">{{ __('shop.login') }}</a>

@@ -1,6 +1,4 @@
-<x-layouts.app :title="__('shop.cart')">
-
-    <div class="bg-cream min-h-screen">
+<div class="bg-cream min-h-screen">
         <div class="max-w-7xl mx-auto px-4 py-8 md:py-12">
 
             {{-- Page Header --}}
@@ -229,6 +227,4 @@
             @endif
 
         </div>
-    </div>
-
-</x-layouts.app>
+</div>

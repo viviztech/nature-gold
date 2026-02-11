@@ -6,12 +6,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? config('app.name', 'Nature Gold') }} | {{ config('app.name', 'Nature Gold') }}</title>
-    <meta name="description" content="{{ $metaDescription ?? 'Nature Gold - 100% Natural Cold-Pressed Oils & Food Products from Tamil Nadu' }}">
 
-    {{-- Open Graph --}}
-    <meta property="og:title" content="{{ $title ?? config('app.name') }}">
-    <meta property="og:description" content="{{ $metaDescription ?? 'Nature Gold - 100% Natural Cold-Pressed Oils & Food Products' }}">
-    <meta property="og:type" content="website">
+    {{-- SEO Meta, OG Tags, Structured Data --}}
+    <x-seo-meta
+        :title="$title ?? config('app.name', 'Nature Gold')"
+        :description="$metaDescription ?? __('shop.seo_home_description')"
+        :type="$ogType ?? 'website'"
+        :image="$ogImage ?? null"
+        :json-ld="$jsonLd ?? null"
+    />
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

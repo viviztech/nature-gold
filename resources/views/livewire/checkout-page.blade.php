@@ -1,6 +1,4 @@
-<x-layouts.app :title="__('shop.checkout')">
-
-    <div class="bg-cream min-h-screen">
+<div class="bg-cream min-h-screen">
         <div class="max-w-7xl mx-auto px-4 py-8 md:py-12">
 
             {{-- Page Header --}}
@@ -304,4 +302,4 @@
         });
     </script>
 
-</x-layouts.app>
+</div>

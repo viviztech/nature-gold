@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LocalLandingController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\PaymentController;
@@ -117,3 +119,52 @@ Route::middleware('throttle:5,1')->group(function () {
     Route::post('/otp/send', [OtpController::class, 'send'])->name('otp.send');
     Route::post('/otp/verify', [OtpController::class, 'verify'])->name('otp.verify');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Blog Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+/*
+|--------------------------------------------------------------------------
+| Local Landing Pages (SEO)
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/locations', [LocalLandingController::class, 'index'])->name('local.index');
+Route::get('/locations/{district}', [LocalLandingController::class, 'show'])->name('local.show');
+Route::get('/{productType}/{district}', [LocalLandingController::class, 'productType'])
+    ->where('productType', 'cold-pressed-oil|groundnut-oil|sesame-oil|coconut-oil')
+    ->name('local.product-type');
+
+/*
+|--------------------------------------------------------------------------
+| Locale-Prefixed Routes (SEO)
+|--------------------------------------------------------------------------
+| Duplicate storefront routes under /ta/ prefix for Tamil SEO indexing.
+| The SetLocale middleware detects the prefix and sets the locale.
+*/
+
+Route::prefix('{locale}')
+    ->where(['locale' => 'en|ta'])
+    ->group(function () {
+        Route::get('/', [StorefrontController::class, 'home'])->name('locale.home');
+        Route::get('/shop', [ShopController::class, 'index'])->name('locale.shop');
+        Route::get('/product/{slug}', [ShopController::class, 'show'])->name('locale.product.show');
+        Route::get('/about', [StorefrontController::class, 'about'])->name('locale.about');
+        Route::get('/contact', [StorefrontController::class, 'contact'])->name('locale.contact');
+        Route::get('/blog', [BlogController::class, 'index'])->name('locale.blog.index');
+        Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('locale.blog.show');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Sitemap
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');

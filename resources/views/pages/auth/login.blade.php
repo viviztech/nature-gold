@@ -46,7 +46,7 @@
                     <div>
                         <div class="flex items-center justify-between mb-1">
                             <label for="password" class="block text-sm font-medium text-gray-700">{{ __('shop.password') }}</label>
-                            <a href="{{ route('password.request') }}" class="text-xs text-gold-600 hover:text-gold-700">{{ __('shop.forgot_password') }}</a>
+                            <a href="#" class="text-xs text-gold-600 hover:text-gold-700">{{ __('shop.forgot_password') }}</a>
                         </div>
                         <input type="password" id="password" name="password" required
                                class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:border-gold-500 focus:ring-1 focus:ring-gold-500 outline-none"

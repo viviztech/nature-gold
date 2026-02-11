@@ -25,11 +25,13 @@ class CartCountBadge extends Component
     public function render()
     {
         return <<<'BLADE'
-        @if($count > 0)
-            <span class="absolute -top-1 -right-1 w-4 h-4 bg-gold-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                {{ $count > 99 ? '99+' : $count }}
-            </span>
-        @endif
+        <span>
+            @if($count > 0)
+                <span class="absolute -top-1 -right-1 w-4 h-4 bg-gold-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {{ $count > 99 ? '99+' : $count }}
+                </span>
+            @endif
+        </span>
         BLADE;
     }
 }

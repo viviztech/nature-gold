@@ -11,6 +11,13 @@ class StorefrontController extends Controller
 {
     public function home()
     {
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'Nature Gold',
+            'description' => __('shop.seo_home_description'),
+            'url' => url('/'),
+        ];
         $banners = Banner::where('is_active', true)
             ->where('position', 'hero')
             ->where(fn ($q) => $q->whereNull('starts_at')->orWhere('starts_at', '<=', now()))
@@ -35,7 +42,7 @@ class StorefrontController extends Controller
             ->limit(8)
             ->get();
 
-        return view('pages.home', compact('banners', 'categories', 'featuredProducts', 'bestSellers'));
+        return view('pages.home', compact('banners', 'categories', 'featuredProducts', 'bestSellers', 'jsonLd'));
     }
 
     public function about()

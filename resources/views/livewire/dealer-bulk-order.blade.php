@@ -1,5 +1,4 @@
-<x-dealer-layout :title="__('dealer.bulk_order')">
-
+<div>
     <div class="flex flex-col lg:flex-row gap-6">
 
         {{-- Left Side: Product List --}}
@@ -254,5 +253,4 @@
         </div>
 
     </div>
-
-</x-dealer-layout>
+</div>

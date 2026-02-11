@@ -10,10 +10,18 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = session('locale', $request->user()?->locale ?? config('app.locale'));
+        // Priority: URL prefix > Session > User preference > Config default
+        $locale = $request->segment(1);
 
         if (in_array($locale, ['en', 'ta'])) {
             app()->setLocale($locale);
+            session()->put('locale', $locale);
+        } else {
+            $locale = session('locale', $request->user()?->locale ?? config('app.locale'));
+
+            if (in_array($locale, ['en', 'ta'])) {
+                app()->setLocale($locale);
+            }
         }
 
         return $next($request);

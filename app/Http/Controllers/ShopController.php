@@ -75,6 +75,39 @@ class ShopController extends Controller
             ->limit(4)
             ->get();
 
-        return view('pages.product-detail', compact('product', 'relatedProducts'));
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => $product->name,
+            'description' => strip_tags($product->description ?? ''),
+            'sku' => $product->sku,
+            'url' => route('product.show', $product->slug),
+            'brand' => [
+                '@type' => 'Brand',
+                'name' => 'Nature Gold',
+            ],
+            'offers' => [
+                '@type' => 'Offer',
+                'price' => $product->effective_price,
+                'priceCurrency' => 'INR',
+                'availability' => $product->stock > 0
+                    ? 'https://schema.org/InStock'
+                    : 'https://schema.org/OutOfStock',
+            ],
+        ];
+
+        if ($product->primaryImage) {
+            $jsonLd['image'] = \Storage::url($product->primaryImage->image_path);
+        }
+
+        if ($product->reviews_avg_rating) {
+            $jsonLd['aggregateRating'] = [
+                '@type' => 'AggregateRating',
+                'ratingValue' => round($product->reviews_avg_rating, 1),
+                'reviewCount' => $product->reviews->count(),
+            ];
+        }
+
+        return view('pages.product-detail', compact('product', 'relatedProducts', 'jsonLd'));
     }
 }
