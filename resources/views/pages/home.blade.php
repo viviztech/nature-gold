@@ -4,23 +4,17 @@
     @if($banners->count() > 0)
     <section x-data="{ current: 0, total: {{ $banners->count() }} }"
              x-init="setInterval(() => current = (current + 1) % total, 5000)"
-             class="relative overflow-hidden">
+             class="relative overflow-hidden h-[400px] md:h-[500px] lg:h-[600px]">
         @foreach($banners as $index => $banner)
-            <div x-show="current === {{ $index }}"
-                 x-transition:enter="transition ease-out duration-700"
-                 x-transition:enter-start="opacity-0 scale-105"
-                 x-transition:enter-end="opacity-100 scale-100"
-                 x-transition:leave="transition ease-in duration-300"
-                 x-transition:leave-start="opacity-100"
-                 x-transition:leave-end="opacity-0"
-                 class="relative {{ $index > 0 ? 'absolute inset-0' : '' }}">
+            <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                 :class="current === {{ $index }} ? 'opacity-100 z-10' : 'opacity-0 z-0'">
                 <picture>
                     @if($banner->mobile_image)
                         <source media="(max-width: 768px)" srcset="{{ Storage::url($banner->mobile_image) }}">
                     @endif
                     <img src="{{ Storage::url($banner->image) }}"
                          alt="{{ $banner->title }}"
-                         class="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover">
+                         class="w-full h-full object-cover">
                 </picture>
                 <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex items-center">
                     <div class="max-w-7xl mx-auto px-4 w-full">
@@ -44,7 +38,7 @@
 
         {{-- Slider Dots --}}
         @if($banners->count() > 1)
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
             @foreach($banners as $index => $banner)
                 <button @click="current = {{ $index }}"
                         :class="current === {{ $index }} ? 'bg-gold-500 w-8' : 'bg-white/60 w-3'"
