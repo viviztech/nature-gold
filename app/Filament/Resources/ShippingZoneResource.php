@@ -74,7 +74,7 @@ class ShippingZoneResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('districts')
-                    ->formatStateUsing(fn (array $state) => count($state) . ' districts')
+                    ->formatStateUsing(fn ($state) => is_array($state) ? count($state) . ' districts' : $state)
                     ->badge(),
                 Tables\Columns\TextColumn::make('base_rate')->money('INR'),
                 Tables\Columns\TextColumn::make('free_above')->money('INR')->placeholder('-'),
