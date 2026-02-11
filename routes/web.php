@@ -59,6 +59,8 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
     Route::get('/orders/{order}', [AccountController::class, 'orderDetail'])->name('orders.show');
     Route::get('/wishlist', [AccountController::class, 'wishlist'])->name('wishlist');
     Route::get('/addresses', [AccountController::class, 'addresses'])->name('addresses');
+    Route::post('/addresses', [AccountController::class, 'storeAddress'])->name('addresses.store');
+    Route::delete('/addresses/{address}', [AccountController::class, 'destroyAddress'])->name('addresses.destroy');
     Route::get('/profile', [AccountController::class, 'profile'])->name('profile');
     Route::put('/profile', [AccountController::class, 'updateProfile'])->name('profile.update');
     Route::put('/password', [AccountController::class, 'updatePassword'])->name('password.update');
