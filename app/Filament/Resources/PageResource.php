@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
 use App\Models\Page;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,16 +29,16 @@ class PageResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Page Details')
+                Schemas\Components\Section::make('Page Details')
                     ->schema([
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('title_en')
                                     ->label('Title (English)')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn (Schemas\Components\Utilities\Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
                                 Forms\Components\TextInput::make('title_ta')
                                     ->label('Title (Tamil)')
@@ -56,7 +58,7 @@ class PageResource extends Resource
                             ->columnSpanFull(),
                     ]),
 
-                Forms\Components\Section::make('SEO')
+                Schemas\Components\Section::make('SEO')
                     ->collapsed()
                     ->schema([
                         Forms\Components\TextInput::make('meta_title'),
@@ -85,12 +87,12 @@ class PageResource extends Resource
                     ->sortable(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

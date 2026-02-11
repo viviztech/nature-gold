@@ -6,7 +6,9 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Infolists;
 use Filament\Resources\Resource;
@@ -29,9 +31,9 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Order Details')
+                        Schemas\Components\Section::make('Order Details')
                             ->schema([
                                 Forms\Components\TextInput::make('order_number')
                                     ->disabled(),
@@ -48,7 +50,7 @@ class OrderResource extends Resource
                                     ->rows(3),
                             ]),
 
-                        Forms\Components\Section::make('Shipping')
+                        Schemas\Components\Section::make('Shipping')
                             ->schema([
                                 Forms\Components\TextInput::make('tracking_number'),
                                 Forms\Components\TextInput::make('tracking_url')
@@ -57,9 +59,9 @@ class OrderResource extends Resource
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Forms\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Summary')
+                        Schemas\Components\Section::make('Summary')
                             ->schema([
                                 Forms\Components\Placeholder::make('user')
                                     ->content(fn (Order $record) => $record->user?->name ?? 'Guest'),
@@ -86,9 +88,9 @@ class OrderResource extends Resource
     {
         return $infolist
             ->schema([
-                Infolists\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Infolists\Components\Section::make('Order Information')
+                        Schemas\Components\Section::make('Order Information')
                             ->schema([
                                 Infolists\Components\TextEntry::make('order_number')
                                     ->label('Order #')
@@ -118,7 +120,7 @@ class OrderResource extends Resource
                             ])
                             ->columns(3),
 
-                        Infolists\Components\Section::make('Order Items')
+                        Schemas\Components\Section::make('Order Items')
                             ->schema([
                                 Infolists\Components\RepeatableEntry::make('items')
                                     ->schema([
@@ -137,7 +139,7 @@ class OrderResource extends Resource
                                     ->columns(5),
                             ]),
 
-                        Infolists\Components\Section::make('Shipping Address')
+                        Schemas\Components\Section::make('Shipping Address')
                             ->schema([
                                 Infolists\Components\TextEntry::make('shipping_address')
                                     ->formatStateUsing(function ($state) {
@@ -161,7 +163,7 @@ class OrderResource extends Resource
                             ])
                             ->columns(2),
 
-                        Infolists\Components\Section::make('Tracking')
+                        Schemas\Components\Section::make('Tracking')
                             ->schema([
                                 Infolists\Components\TextEntry::make('tracking_number')
                                     ->placeholder('Not available'),
@@ -174,9 +176,9 @@ class OrderResource extends Resource
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Infolists\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Infolists\Components\Section::make('Customer')
+                        Schemas\Components\Section::make('Customer')
                             ->schema([
                                 Infolists\Components\TextEntry::make('user.name')
                                     ->label('Name'),
@@ -186,7 +188,7 @@ class OrderResource extends Resource
                                     ->label('Phone'),
                             ]),
 
-                        Infolists\Components\Section::make('Order Summary')
+                        Schemas\Components\Section::make('Order Summary')
                             ->schema([
                                 Infolists\Components\TextEntry::make('subtotal')
                                     ->money('INR'),
@@ -205,7 +207,7 @@ class OrderResource extends Resource
                                     ->size('lg'),
                             ]),
 
-                        Infolists\Components\Section::make('Timeline')
+                        Schemas\Components\Section::make('Timeline')
                             ->schema([
                                 Infolists\Components\TextEntry::make('confirmed_at')
                                     ->dateTime('d M Y, h:i A')
@@ -296,8 +298,8 @@ class OrderResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Actions\ViewAction::make(),
+                Actions\EditAction::make(),
             ])
             ->bulkActions([]);
     }

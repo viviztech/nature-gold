@@ -8,7 +8,9 @@ use App\Enums\UserRole;
 use App\Filament\Resources\DealerResource\Pages;
 use App\Models\Dealer;
 use App\Services\Notification\NotificationService;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -31,9 +33,9 @@ class DealerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Business Information')
+                        Schemas\Components\Section::make('Business Information')
                             ->schema([
                                 Forms\Components\TextInput::make('business_name')
                                     ->required()
@@ -66,7 +68,7 @@ class DealerResource extends Resource
                                     ->rows(3),
                             ]),
 
-                        Forms\Components\Section::make('Documents')
+                        Schemas\Components\Section::make('Documents')
                             ->schema([
                                 Forms\Components\FileUpload::make('gst_certificate')
                                     ->label('GST Certificate')
@@ -81,9 +83,9 @@ class DealerResource extends Resource
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Forms\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Status & Commission')
+                        Schemas\Components\Section::make('Status & Commission')
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->options(collect(DealerStatus::cases())->mapWithKeys(fn ($s) => [$s->value => $s->label()]))
@@ -99,7 +101,7 @@ class DealerResource extends Resource
                                 Forms\Components\Textarea::make('rejection_reason')
                                     ->label('Rejection Reason')
                                     ->rows(3)
-                                    ->visible(fn (Forms\Get $get) => $get('status') === 'rejected'),
+                                    ->visible(fn (Schemas\Components\Utilities\Get $get) => $get('status') === 'rejected'),
 
                                 Forms\Components\Placeholder::make('approved_at_display')
                                     ->label('Approved At')
@@ -168,7 +170,7 @@ class DealerResource extends Resource
                     ->options(collect(TamilNaduDistrict::cases())->mapWithKeys(fn ($d) => [$d->value => $d->label()])),
             ])
             ->actions([
-                Tables\Actions\Action::make('approve')
+                Actions\Action::make('approve')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
@@ -193,7 +195,7 @@ class DealerResource extends Resource
                         app(NotificationService::class)->dealerApproved($record);
                     }),
 
-                Tables\Actions\Action::make('reject')
+                Actions\Action::make('reject')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
                     ->requiresConfirmation()
@@ -218,7 +220,7 @@ class DealerResource extends Resource
                         app(NotificationService::class)->dealerRejected($record);
                     }),
 
-                Tables\Actions\EditAction::make(),
+                Actions\EditAction::make(),
             ])
             ->bulkActions([]);
     }

@@ -4,8 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BlogPostResource\Pages;
 use App\Models\BlogPost;
+use Filament\Actions;
 use Filament\Forms;
 use Filament\Resources\Resource;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -27,7 +29,7 @@ class BlogPostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Post Content')
+                Schemas\Components\Section::make('Post Content')
                     ->schema([
                         Forms\Components\TextInput::make('title_en')
                             ->label('Title (English)')
@@ -65,7 +67,7 @@ class BlogPostResource extends Resource
                             ->columnSpanFull(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Media & Meta')
+                Schemas\Components\Section::make('Media & Meta')
                     ->schema([
                         Forms\Components\FileUpload::make('featured_image')
                             ->image()
@@ -96,7 +98,7 @@ class BlogPostResource extends Resource
                             ->suffix('minutes'),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Publishing')
+                Schemas\Components\Section::make('Publishing')
                     ->schema([
                         Forms\Components\Toggle::make('is_published')
                             ->label('Published')
@@ -107,7 +109,7 @@ class BlogPostResource extends Resource
                             ->default(now()),
                     ])->columns(2),
 
-                Forms\Components\Section::make('SEO')
+                Schemas\Components\Section::make('SEO')
                     ->schema([
                         Forms\Components\TextInput::make('meta_title')
                             ->maxLength(70),
@@ -155,12 +157,12 @@ class BlogPostResource extends Resource
                 Tables\Filters\SelectFilter::make('category'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

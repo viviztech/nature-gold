@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Enums\TamilNaduDistrict;
 use App\Filament\Resources\ShippingZoneResource\Pages;
 use App\Models\ShippingZone;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,7 +27,7 @@ class ShippingZoneResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Zone Details')
+                Schemas\Components\Section::make('Zone Details')
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
@@ -37,7 +39,7 @@ class ShippingZoneResource extends Resource
                             ->searchable()
                             ->required(),
 
-                        Forms\Components\Grid::make(3)
+                        Schemas\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('base_rate')
                                     ->label('Base Rate')
@@ -55,7 +57,7 @@ class ShippingZoneResource extends Resource
                                     ->prefix('₹'),
                             ]),
 
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('estimated_days')
                                     ->placeholder('e.g., 2-3 days'),
@@ -80,12 +82,12 @@ class ShippingZoneResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')->boolean(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

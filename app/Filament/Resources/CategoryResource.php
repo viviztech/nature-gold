@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,16 +27,16 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Category Details')
+                Schemas\Components\Section::make('Category Details')
                     ->schema([
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('name_en')
                                     ->label('Name (English)')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn (Schemas\Components\Utilities\Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
                                 Forms\Components\TextInput::make('name_ta')
                                     ->label('Name (Tamil)')
@@ -53,7 +55,7 @@ class CategoryResource extends Resource
                             ->preload()
                             ->placeholder('None (Root Category)'),
 
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\Textarea::make('description_en')
                                     ->label('Description (English)')
@@ -73,7 +75,7 @@ class CategoryResource extends Resource
                             ->imageResizeTargetHeight('450'),
                     ]),
 
-                Forms\Components\Section::make('SEO')
+                Schemas\Components\Section::make('SEO')
                     ->collapsed()
                     ->schema([
                         Forms\Components\TextInput::make('meta_title')
@@ -82,9 +84,9 @@ class CategoryResource extends Resource
                             ->rows(2),
                     ]),
 
-                Forms\Components\Section::make('Status')
+                Schemas\Components\Section::make('Status')
                     ->schema([
-                        Forms\Components\Grid::make(3)
+                        Schemas\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\Toggle::make('is_active')
                                     ->label('Active')
@@ -147,12 +149,12 @@ class CategoryResource extends Resource
                     ->placeholder('All'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->reorderable('sort_order');

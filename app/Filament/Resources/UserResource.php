@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Enums\UserRole;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,9 +29,9 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('User Information')
+                Schemas\Components\Section::make('User Information')
                     ->schema([
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->required()
@@ -39,7 +41,7 @@ class UserResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true),
                             ]),
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('phone')
                                     ->tel()
@@ -49,7 +51,7 @@ class UserResource extends Resource
                                     ->required()
                                     ->default('customer'),
                             ]),
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\Select::make('locale')
                                     ->options(['en' => 'English', 'ta' => 'Tamil'])
@@ -58,7 +60,7 @@ class UserResource extends Resource
                                     ->default(true),
                             ]),
                     ]),
-                Forms\Components\Section::make('Password')
+                Schemas\Components\Section::make('Password')
                     ->schema([
                         Forms\Components\TextInput::make('password')
                             ->password()
@@ -93,11 +95,11 @@ class UserResource extends Resource
                 Tables\Filters\TernaryFilter::make('is_active'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

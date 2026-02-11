@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CouponResource\Pages;
 use App\Models\Coupon;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -24,7 +26,7 @@ class CouponResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Coupon Details')
+                Schemas\Components\Section::make('Coupon Details')
                     ->schema([
                         Forms\Components\TextInput::make('code')
                             ->required()
@@ -33,7 +35,7 @@ class CouponResource extends Resource
                             ->formatStateUsing(fn (?string $state) => strtoupper($state ?? ''))
                             ->dehydrateStateUsing(fn (string $state) => strtoupper($state)),
 
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\Select::make('type')
                                     ->options([
@@ -49,7 +51,7 @@ class CouponResource extends Resource
                                     ->step(0.01),
                             ]),
 
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('min_order')
                                     ->label('Minimum Order Amount')
@@ -62,7 +64,7 @@ class CouponResource extends Resource
                                     ->prefix('₹'),
                             ]),
 
-                        Forms\Components\Grid::make(3)
+                        Schemas\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('usage_limit')
                                     ->label('Total Usage Limit')
@@ -81,9 +83,9 @@ class CouponResource extends Resource
                             ]),
                     ]),
 
-                Forms\Components\Section::make('Validity')
+                Schemas\Components\Section::make('Validity')
                     ->schema([
-                        Forms\Components\Grid::make(3)
+                        Schemas\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\DateTimePicker::make('starts_at'),
                                 Forms\Components\DateTimePicker::make('expires_at'),
@@ -128,12 +130,12 @@ class CouponResource extends Resource
                     ->color(fn (?string $state) => $state && now()->gt($state) ? 'danger' : null),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

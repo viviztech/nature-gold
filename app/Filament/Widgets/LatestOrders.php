@@ -6,6 +6,7 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Filament\Resources\OrderResource;
 use App\Models\Order;
+use Filament\Actions\Action;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -49,7 +50,7 @@ class LatestOrders extends BaseWidget
                     ->sortable(),
             ])
             ->actions([
-                Tables\Actions\Action::make('view')
+                Action::make('view')
                     ->url(fn (Order $record) => OrderResource::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-o-eye'),
             ])

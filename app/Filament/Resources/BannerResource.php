@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BannerResource\Pages;
 use App\Models\Banner;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -24,9 +26,9 @@ class BannerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Banner Content')
+                Schemas\Components\Section::make('Banner Content')
                     ->schema([
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('title_en')
                                     ->label('Title (English)')
@@ -35,7 +37,7 @@ class BannerResource extends Resource
                                     ->label('Title (Tamil)')
                                     ->maxLength(255),
                             ]),
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('subtitle_en')
                                     ->label('Subtitle (English)')
@@ -44,7 +46,7 @@ class BannerResource extends Resource
                                     ->label('Subtitle (Tamil)')
                                     ->maxLength(255),
                             ]),
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('button_text_en')
                                     ->label('Button Text (English)')
@@ -59,7 +61,7 @@ class BannerResource extends Resource
                             ->prefix('/'),
                     ]),
 
-                Forms\Components\Section::make('Images')
+                Schemas\Components\Section::make('Images')
                     ->schema([
                         Forms\Components\FileUpload::make('image')
                             ->label('Desktop Image')
@@ -79,9 +81,9 @@ class BannerResource extends Resource
                             ->imageResizeTargetHeight('500'),
                     ]),
 
-                Forms\Components\Section::make('Settings')
+                Schemas\Components\Section::make('Settings')
                     ->schema([
-                        Forms\Components\Grid::make(3)
+                        Schemas\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\Select::make('position')
                                     ->options([
@@ -96,7 +98,7 @@ class BannerResource extends Resource
                                 Forms\Components\Toggle::make('is_active')
                                     ->default(true),
                             ]),
-                        Forms\Components\Grid::make(2)
+                        Schemas\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\DateTimePicker::make('starts_at'),
                                 Forms\Components\DateTimePicker::make('expires_at'),
@@ -133,12 +135,12 @@ class BannerResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->reorderable('sort_order');

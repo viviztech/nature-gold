@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,18 +29,18 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Product Information')
+                        Schemas\Components\Section::make('Product Information')
                             ->schema([
-                                Forms\Components\Grid::make(2)
+                                Schemas\Components\Grid::make(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('name_en')
                                             ->label('Name (English)')
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Schemas\Components\Utilities\Set $set, ?string $state) => $set('slug', Str::slug($state))),
 
                                         Forms\Components\TextInput::make('name_ta')
                                             ->label('Name (Tamil)')
@@ -50,7 +52,7 @@ class ProductResource extends Resource
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255),
 
-                                Forms\Components\Grid::make(2)
+                                Schemas\Components\Grid::make(2)
                                     ->schema([
                                         Forms\Components\RichEditor::make('description_en')
                                             ->label('Description (English)')
@@ -61,7 +63,7 @@ class ProductResource extends Resource
                                             ->columnSpanFull(),
                                     ]),
 
-                                Forms\Components\Grid::make(2)
+                                Schemas\Components\Grid::make(2)
                                     ->schema([
                                         Forms\Components\Textarea::make('short_description_en')
                                             ->label('Short Description (English)')
@@ -73,7 +75,7 @@ class ProductResource extends Resource
                                     ]),
                             ]),
 
-                        Forms\Components\Section::make('Images')
+                        Schemas\Components\Section::make('Images')
                             ->schema([
                                 Forms\Components\Repeater::make('images')
                                     ->relationship()
@@ -101,7 +103,7 @@ class ProductResource extends Resource
                                     ->cloneable(),
                             ]),
 
-                        Forms\Components\Section::make('Variants')
+                        Schemas\Components\Section::make('Variants')
                             ->schema([
                                 Forms\Components\Repeater::make('variants')
                                     ->relationship()
@@ -143,7 +145,7 @@ class ProductResource extends Resource
                                     ->itemLabel(fn (array $state): ?string => $state['name'] ?? null),
                             ]),
 
-                        Forms\Components\Section::make('Nutritional Information')
+                        Schemas\Components\Section::make('Nutritional Information')
                             ->collapsed()
                             ->schema([
                                 Forms\Components\RichEditor::make('nutritional_info_en')
@@ -153,7 +155,7 @@ class ProductResource extends Resource
                                     ->label('Nutritional Info (Tamil)'),
                             ]),
 
-                        Forms\Components\Section::make('SEO')
+                        Schemas\Components\Section::make('SEO')
                             ->collapsed()
                             ->schema([
                                 Forms\Components\TextInput::make('meta_title')
@@ -164,9 +166,9 @@ class ProductResource extends Resource
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Forms\Components\Group::make()
+                Schemas\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Pricing')
+                        Schemas\Components\Section::make('Pricing')
                             ->schema([
                                 Forms\Components\TextInput::make('price')
                                     ->numeric()
@@ -187,7 +189,7 @@ class ProductResource extends Resource
                                     ->suffix('%'),
                             ]),
 
-                        Forms\Components\Section::make('Inventory')
+                        Schemas\Components\Section::make('Inventory')
                             ->schema([
                                 Forms\Components\TextInput::make('sku')
                                     ->label('SKU')
@@ -212,7 +214,7 @@ class ProductResource extends Resource
                                     ->default('piece'),
                             ]),
 
-                        Forms\Components\Section::make('Organization')
+                        Schemas\Components\Section::make('Organization')
                             ->schema([
                                 Forms\Components\Select::make('category_id')
                                     ->relationship('category', 'name_en')
@@ -313,12 +315,12 @@ class ProductResource extends Resource
                     ->query(fn ($query) => $query->where('stock', '<=', 10)),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

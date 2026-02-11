@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactInquiryResource\Pages;
 use App\Models\ContactInquiry;
+use Filament\Actions;
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,9 +28,9 @@ class ContactInquiryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Inquiry Details')
+                Schemas\Components\Section::make('Inquiry Details')
                     ->schema([
-                        Forms\Components\Grid::make(3)
+                        Schemas\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('name')->disabled(),
                                 Forms\Components\TextInput::make('email')->disabled(),
@@ -38,7 +40,7 @@ class ContactInquiryResource extends Resource
                         Forms\Components\Textarea::make('message')->disabled()->rows(4),
                         Forms\Components\TextInput::make('type')->disabled(),
                     ]),
-                Forms\Components\Section::make('Admin Response')
+                Schemas\Components\Section::make('Admin Response')
                     ->schema([
                         Forms\Components\Select::make('status')
                             ->options(['new' => 'New', 'read' => 'Read', 'replied' => 'Replied'])
@@ -81,8 +83,8 @@ class ContactInquiryResource extends Resource
                     ->options(['general' => 'General', 'dealer' => 'Dealer', 'bulk' => 'Bulk Order']),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ]);
     }
 
