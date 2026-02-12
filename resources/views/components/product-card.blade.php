@@ -28,8 +28,8 @@
             @endif
         </div>
 
-        {{-- Wishlist --}}
-        <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+        {{-- Wishlist (always visible on touch devices, hover-reveal on desktop) --}}
+        <div class="absolute top-2 right-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition">
             <livewire:wishlist-button :productId="$product->id" :wire:key="'wish-card-'.$product->id" />
         </div>
     </a>

@@ -2,15 +2,15 @@
 
     <div class="max-w-7xl mx-auto px-4 py-8">
         {{-- Breadcrumb --}}
-        <nav class="text-sm text-gray-500 mb-6">
+        <nav class="text-sm text-gray-500 mb-6 overflow-x-auto whitespace-nowrap pb-1 -mb-1">
             <a href="{{ route('home') }}" class="hover:text-gold-600">{{ __('shop.nav_home') }}</a>
-            <span class="mx-2">/</span>
+            <span class="mx-1.5 sm:mx-2">/</span>
             <a href="{{ route('shop') }}" class="hover:text-gold-600">{{ __('shop.nav_shop') }}</a>
             @if($product->category)
-                <span class="mx-2">/</span>
+                <span class="mx-1.5 sm:mx-2">/</span>
                 <a href="{{ route('shop', ['category' => $product->category->slug]) }}" class="hover:text-gold-600">{{ $product->category->name }}</a>
             @endif
-            <span class="mx-2">/</span>
+            <span class="mx-1.5 sm:mx-2">/</span>
             <span class="text-gray-800">{{ $product->name }}</span>
         </nav>
 

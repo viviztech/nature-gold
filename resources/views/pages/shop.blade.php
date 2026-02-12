@@ -74,13 +74,13 @@
             {{-- Products Grid --}}
             <div class="flex-1">
                 {{-- Sort & Count Bar --}}
-                <div class="flex items-center justify-between mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                     <p class="text-sm text-gray-500">
                         {{ __('shop.showing_results', ['count' => $products->total()]) }}
                     </p>
                     <div class="flex items-center gap-2">
-                        <label class="text-sm text-gray-500">{{ __('shop.sort_by') }}:</label>
-                        <select onchange="window.location.href=this.value" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:border-gold-400 outline-none">
+                        <label class="text-sm text-gray-500 hidden sm:inline">{{ __('shop.sort_by') }}:</label>
+                        <select onchange="window.location.href=this.value" class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:border-gold-400 outline-none w-full sm:w-auto">
                             <option value="{{ route('shop', array_merge(request()->except('sort'), ['sort' => 'newest'])) }}" {{ request('sort', 'newest') === 'newest' ? 'selected' : '' }}>{{ __('shop.sort_newest') }}</option>
                             <option value="{{ route('shop', array_merge(request()->except('sort'), ['sort' => 'price_low'])) }}" {{ request('sort') === 'price_low' ? 'selected' : '' }}>{{ __('shop.sort_price_low') }}</option>
                             <option value="{{ route('shop', array_merge(request()->except('sort'), ['sort' => 'price_high'])) }}" {{ request('sort') === 'price_high' ? 'selected' : '' }}>{{ __('shop.sort_price_high') }}</option>

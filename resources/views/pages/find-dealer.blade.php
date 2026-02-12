@@ -64,8 +64,8 @@
         @endif
 
         {{-- Become a Dealer CTA --}}
-        <div class="mt-12 bg-gradient-to-r from-gold-50 to-nature-50 rounded-2xl p-8 text-center">
-            <h3 class="font-heading text-xl font-bold text-gray-900">{{ __('shop.become_dealer_cta') }}</h3>
+        <div class="mt-12 bg-gradient-to-r from-gold-50 to-nature-50 rounded-2xl p-6 sm:p-8 text-center">
+            <h3 class="font-heading text-lg sm:text-xl font-bold text-gray-900">{{ __('shop.become_dealer_cta') }}</h3>
             <a href="{{ route('dealer.register') }}"
                class="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-nature-700 text-white font-semibold rounded-xl hover:bg-nature-800 transition">
                 {{ __('shop.become_dealer') }}
