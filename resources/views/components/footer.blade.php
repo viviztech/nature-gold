@@ -14,9 +14,10 @@
     <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {{-- About --}}
         <div>
-            <span class="font-heading text-xl font-bold">
-                <span class="text-nature-300">Nature</span><span class="text-gold-400"> Gold</span>
-            </span>
+            <img src="{{ asset('images/logos/logo-white.png') }}"
+                 srcset="{{ asset('images/logos/logo-white.png') }} 1x, {{ asset('images/logos/logo-white@2x.png') }} 2x"
+                 alt="{{ config('app.name', 'Nature Gold') }}"
+                 class="h-10 w-auto">
             <p class="text-gray-300 text-sm mt-3 leading-relaxed">
                 {{ __('shop.footer_about') }}
             </p>

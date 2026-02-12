@@ -27,10 +27,11 @@
             </button>
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-2 shrink-0">
-                <span class="font-heading text-2xl font-bold">
-                    <span class="text-nature-700">Nature</span><span class="text-gold-600"> Gold</span>
-                </span>
+            <a href="{{ route('home') }}" class="shrink-0">
+                <img src="{{ asset('images/logos/logo.png') }}"
+                     srcset="{{ asset('images/logos/logo.png') }} 1x, {{ asset('images/logos/logo@2x.png') }} 2x"
+                     alt="{{ config('app.name', 'Nature Gold') }}"
+                     class="h-10 sm:h-12 w-auto">
             </a>
 
             {{-- Desktop Navigation --}}

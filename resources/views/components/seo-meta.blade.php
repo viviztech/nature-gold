@@ -7,9 +7,7 @@
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:type" content="{{ $type }}">
 <meta property="og:url" content="{{ $url }}">
-@if($image)
-    <meta property="og:image" content="{{ $image }}">
-@endif
+<meta property="og:image" content="{{ $image ?: asset('images/og-image.jpg') }}">
 <meta property="og:site_name" content="{{ config('app.name', 'Nature Gold') }}">
 <meta property="og:locale" content="{{ app()->getLocale() === 'ta' ? 'ta_IN' : 'en_IN' }}">
 
@@ -17,9 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $title }}">
 <meta name="twitter:description" content="{{ $description }}">
-@if($image)
-    <meta name="twitter:image" content="{{ $image }}">
-@endif
+<meta name="twitter:image" content="{{ $image ?: asset('images/og-image.jpg') }}">
 
 {{-- Alternate Language --}}
 @if(app()->getLocale() === 'en')

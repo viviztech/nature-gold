@@ -6,7 +6,10 @@
             {{-- Logo / Brand --}}
             <div class="text-center mb-8">
                 <a href="{{ url('/') }}" class="inline-block">
-                    <h1 class="font-heading text-3xl font-bold text-nature-700">Nature <span class="text-gold-500">Gold</span></h1>
+                    <img src="{{ asset('images/logos/logo.png') }}"
+                         srcset="{{ asset('images/logos/logo.png') }} 1x, {{ asset('images/logos/logo@2x.png') }} 2x"
+                         alt="{{ config('app.name', 'Nature Gold') }}"
+                         class="h-12 w-auto mx-auto">
                 </a>
                 <p class="text-gray-500 text-sm mt-2">{{ __('shop.login_subtitle') }}</p>
             </div>

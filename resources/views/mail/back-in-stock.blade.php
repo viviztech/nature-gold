@@ -26,6 +26,7 @@
 <body>
     <div class="container">
         <div class="header">
+            <img src="{{ asset('images/logos/logo-white.png') }}" alt="Nature Gold" style="height: 40px; width: auto; margin-bottom: 12px;">
             <h1>Back in Stock!</h1>
         </div>
         <div class="content">
