@@ -6,10 +6,12 @@ use App\Enums\UserRole;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -24,7 +26,22 @@ class User extends Authenticatable implements FilamentUser
         'avatar',
         'password',
         'is_active',
+        'referral_code',
+        'referred_by',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (User $user) {
+            if (! $user->referral_code) {
+                do {
+                    $code = strtoupper(Str::random(8));
+                } while (static::where('referral_code', $code)->exists());
+
+                $user->referral_code = $code;
+            }
+        });
+    }
 
     protected $hidden = [
         'password',
@@ -95,5 +112,15 @@ class User extends Authenticatable implements FilamentUser
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function referrer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'referred_by');
+    }
+
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(Referral::class, 'referrer_id');
     }
 }

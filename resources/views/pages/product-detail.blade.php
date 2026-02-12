@@ -99,11 +99,16 @@
                         </div>
                     @endif
 
-                    <livewire:add-to-cart-button :product="$product" />
+                    @if($product->is_in_stock)
+                        <livewire:add-to-cart-button :product="$product" />
+                    @else
+                        <livewire:stock-alert-button :productId="$product->id" :wire:key="'stock-alert-'.$product->id" />
+                    @endif
                 </div>
 
-                {{-- Share --}}
-                <div class="mt-6 pt-6 border-t border-gray-100">
+                {{-- Wishlist & Share --}}
+                <div class="mt-6 pt-6 border-t border-gray-100 flex items-center gap-4">
+                    <livewire:wishlist-button :productId="$product->id" size="lg" :wire:key="'wish-detail-'.$product->id" />
                     <a href="https://wa.me/?text={{ urlencode($product->name . ' - ₹' . $product->effective_price . ' ' . url()->current()) }}"
                        target="_blank"
                        class="inline-flex items-center gap-2 text-sm text-green-600 hover:text-green-700 font-medium">
@@ -127,7 +132,7 @@
                             {!! nl2br(e($product->description)) !!}
                         </div>
                         <div x-show="tab === 'reviews'">
-                            @forelse($product->reviews as $review)
+                            @forelse($product->reviews->where('is_approved', true) as $review)
                                 <div class="py-4 {{ !$loop->last ? 'border-b border-gray-100' : '' }}">
                                     <div class="flex items-center gap-2">
                                         <div class="flex text-gold-500">
@@ -143,8 +148,11 @@
                                     @endif
                                 </div>
                             @empty
-                                <p class="text-sm text-gray-400 py-4">No reviews yet.</p>
+                                <p class="text-sm text-gray-400 py-4">{{ __('shop.no_reviews_yet') }}</p>
                             @endforelse
+
+                            {{-- Review Form --}}
+                            <livewire:review-form :productId="$product->id" :wire:key="'review-'.$product->id" />
                         </div>
                     </div>
                 </div>

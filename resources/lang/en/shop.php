@@ -393,4 +393,73 @@ return [
     'local_product_desc_1' => 'Nature Gold\'s :product is extracted using traditional cold-press methods to retain maximum nutrients and natural flavor. Available for delivery in :district and across Tamil Nadu.',
     'local_product_desc_2' => 'Our :product is 100% pure, free from chemicals and preservatives, and lab-tested for quality assurance. Perfect for cooking, health, and beauty applications.',
     'local_back_to_district' => 'Back to :district',
+
+    // Wishlist
+    'add_to_wishlist' => 'Add to Wishlist',
+    'remove_from_wishlist' => 'Remove from Wishlist',
+    'added_to_wishlist' => 'Added to wishlist!',
+    'removed_from_wishlist' => 'Removed from wishlist',
+
+    // Reviews
+    'write_review' => 'Write a Review',
+    'your_rating' => 'Your Rating',
+    'your_review' => 'Your Review (optional)',
+    'submit_review' => 'Submit Review',
+    'review_submitted' => 'Thank you! Your review is pending approval.',
+    'already_reviewed' => 'You have already reviewed this product.',
+    'purchase_to_review' => 'Purchase this product to leave a review.',
+    'login_to_review' => 'Please log in to write a review.',
+    'no_reviews_yet' => 'No reviews yet. Be the first to review!',
+
+    // Find a Dealer
+    'find_dealer' => 'Find a Dealer',
+    'find_dealer_subtitle' => 'Locate Nature Gold dealers near you across Tamil Nadu',
+    'all_districts' => 'All Districts',
+    'filter_by_district' => 'Filter by District',
+    'no_dealers_found' => 'No dealers found in this district yet.',
+    'become_dealer' => 'Become a Dealer',
+    'become_dealer_cta' => 'Interested in becoming a Nature Gold dealer?',
+    'dealer_count' => ':count dealer|:count dealers',
+
+    // Stock Alerts
+    'notify_when_available' => 'Notify Me When Available',
+    'stock_alert_set' => 'We\'ll notify you when this item is back in stock!',
+    'stock_alert_removed' => 'Stock alert removed.',
+
+    // Abandoned Cart
+    'cart_reminder_subject' => 'You left items in your cart!',
+    'cart_reminder_heading' => 'Don\'t forget your items',
+    'cart_reminder_text' => 'You have items waiting in your cart. Complete your order before they run out!',
+    'cart_reminder_cta' => 'Complete Your Order',
+
+    // Referrals
+    'referrals' => 'Referrals',
+    'your_referral_code' => 'Your Referral Code',
+    'referral_link' => 'Share Your Link',
+    'copy_link' => 'Copy Link',
+    'copied' => 'Copied!',
+    'share_referral_whatsapp' => 'Share on WhatsApp',
+    'referral_reward' => 'Get ₹50 off for every friend you refer!',
+    'referral_how_it_works' => 'How It Works',
+    'referral_step_1' => 'Share your referral link with friends',
+    'referral_step_2' => 'They sign up and get ₹50 off their first order',
+    'referral_step_3' => 'You also get ₹50 off your next order',
+    'total_referrals' => 'Total Referrals',
+    'rewards_earned' => 'Rewards Earned',
+    'referred_friends' => 'Referred Friends',
+    'no_referrals_yet' => 'No referrals yet',
+    'no_referrals_message' => 'Share your referral code with friends and earn ₹50 for each friend who signs up!',
+    'reward_pending' => 'Pending',
+    'reward_credited' => 'Credited',
+    'referral_description' => 'Share your referral code with friends. When they sign up, you both get a ₹50 discount coupon!',
+    'referral_whatsapp_message' => 'Hey! Use my referral link to sign up on Nature Gold and get ₹50 off your first order: :url',
+    'total_rewards' => 'Total Rewards',
+    'your_referrals' => 'Your Referrals',
+    'joined' => 'Joined',
+    'earned' => 'earned',
+    'pending' => 'Pending',
+    'copy' => 'Copy',
+    'code_copied' => 'Referral code copied to clipboard!',
+    'link_copied' => 'Referral link copied to clipboard!',
+    'share_whatsapp' => 'Share on WhatsApp',
 ];

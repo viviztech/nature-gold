@@ -13,6 +13,7 @@ use App\Http\Controllers\StorefrontController;
 use App\Livewire\CartPage;
 use App\Livewire\CheckoutPage;
 use App\Livewire\DealerBulkOrder;
+use App\Services\ReferralService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::get('/about', [StorefrontController::class, 'about'])->name('about');
 Route::get('/contact', [StorefrontController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,60')->name('contact.submit');
 Route::get('/page/{slug}', [StorefrontController::class, 'page'])->name('page.show');
+Route::get('/find-dealer', [StorefrontController::class, 'findDealer'])->name('find-dealer');
 
 // Cart & Checkout
 Route::get('/cart', CartPage::class)->name('cart');
@@ -64,6 +66,7 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
     Route::get('/profile', [AccountController::class, 'profile'])->name('profile');
     Route::put('/profile', [AccountController::class, 'updateProfile'])->name('profile.update');
     Route::put('/password', [AccountController::class, 'updatePassword'])->name('password.update');
+    Route::get('/referrals', [AccountController::class, 'referrals'])->name('referrals');
 });
 
 /*
@@ -121,6 +124,18 @@ Route::middleware('throttle:5,1')->group(function () {
     Route::post('/otp/send', [OtpController::class, 'send'])->name('otp.send');
     Route::post('/otp/verify', [OtpController::class, 'verify'])->name('otp.verify');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Referral Link
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/ref/{code}', function (string $code) {
+    app(ReferralService::class)->handleReferralVisit($code);
+
+    return redirect()->route('register');
+})->name('referral.link');
 
 /*
 |--------------------------------------------------------------------------

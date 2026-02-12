@@ -17,8 +17,9 @@ class SendAbandonedCartReminders implements ShouldQueue
 
     public function handle(NotificationService $notificationService): void
     {
-        // Find carts updated 2-24 hours ago with items, belonging to logged-in users
+        // Find carts updated 2-24 hours ago with items, belonging to logged-in users, not yet reminded
         $abandonedCarts = Cart::whereNotNull('user_id')
+            ->whereNull('reminder_sent_at')
             ->where('updated_at', '<=', now()->subHours(2))
             ->where('updated_at', '>=', now()->subHours(24))
             ->whereHas('items')
@@ -47,6 +48,7 @@ class SendAbandonedCartReminders implements ShouldQueue
             $total = $cart->subtotal;
 
             $notificationService->abandonedCartReminder($user, $itemCount, $total);
+            $cart->update(['reminder_sent_at' => now()]);
             $sent++;
         }
 

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Services\InvoiceService;
+use App\Services\ReferralService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -147,6 +148,22 @@ class AccountController extends Controller
         abort_unless($order->user_id === auth()->id(), 403);
 
         return $invoiceService->download($order);
+    }
+
+    /**
+     * Display referral program dashboard.
+     */
+    public function referrals(ReferralService $referralService): View
+    {
+        $user = auth()->user();
+        $stats = $referralService->getUserStats($user);
+
+        return view('pages.account.referrals', [
+            'user' => $user,
+            'referrals' => $stats['referrals'],
+            'totalCount' => $stats['total_count'],
+            'totalRewards' => $stats['total_rewards'],
+        ]);
     }
 
     /**

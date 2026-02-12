@@ -11,3 +11,6 @@ Artisan::command('inspire', function () {
 
 // Send abandoned cart reminders every 6 hours
 Schedule::job(new SendAbandonedCartReminders)->everySixHours();
+
+// Check for restocked products and notify subscribers hourly
+Schedule::command('alerts:stock')->hourly();

@@ -30,6 +30,10 @@
                                class="px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap {{ request()->routeIs('account.addresses') ? 'bg-nature-700 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:border-gold-300' }}">
                                 {{ __('shop.addresses') }}
                             </a>
+                            <a href="{{ route('account.referrals') }}"
+                               class="px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap {{ request()->routeIs('account.referrals') ? 'bg-nature-700 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:border-gold-300' }}">
+                                {{ __('shop.referrals') }}
+                            </a>
                             <a href="{{ route('account.profile') }}"
                                class="px-4 py-2 text-sm font-medium rounded-lg whitespace-nowrap {{ request()->routeIs('account.profile') ? 'bg-nature-700 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:border-gold-300' }}">
                                 {{ __('shop.profile') }}
@@ -70,6 +74,11 @@
                                class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition {{ request()->routeIs('account.addresses') ? 'bg-gold-50 text-gold-700' : 'text-gray-600 hover:bg-gray-50' }}">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 {{ __('shop.addresses') }}
+                            </a>
+                            <a href="{{ route('account.referrals') }}"
+                               class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition {{ request()->routeIs('account.referrals') ? 'bg-gold-50 text-gold-700' : 'text-gray-600 hover:bg-gray-50' }}">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+                                {{ __('shop.referrals') }}
                             </a>
                             <a href="{{ route('account.profile') }}"
                                class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition {{ request()->routeIs('account.profile') ? 'bg-gold-50 text-gold-700' : 'text-gray-600 hover:bg-gray-50' }}">

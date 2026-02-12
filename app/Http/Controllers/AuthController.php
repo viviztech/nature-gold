@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\ReferralService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -56,6 +57,9 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
+        // Process referral if user came via a referral link
+        app(ReferralService::class)->processReferral($user);
 
         return redirect()->route('home');
     }

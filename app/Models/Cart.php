@@ -12,7 +12,15 @@ class Cart extends Model
         'user_id',
         'session_id',
         'coupon_code',
+        'reminder_sent_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'reminder_sent_at' => 'datetime',
+        ];
+    }
 
     public function user(): BelongsTo
     {

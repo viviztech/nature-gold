@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DealerStatus;
+use App\Enums\TamilNaduDistrict;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Dealer;
 use App\Models\Page;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class StorefrontController extends Controller
@@ -72,5 +76,23 @@ class StorefrontController extends Controller
         $page = Page::where('slug', $slug)->where('is_active', true)->firstOrFail();
 
         return view('pages.static', compact('page'));
+    }
+
+    public function findDealer(Request $request)
+    {
+        $district = $request->query('district');
+        $districts = TamilNaduDistrict::cases();
+
+        $query = Dealer::where('status', DealerStatus::Approved)
+            ->with('user:id,name');
+
+        if ($district) {
+            $query->where('territory', $district);
+        }
+
+        $dealers = $query->orderBy('territory')->orderBy('business_name')->get();
+        $grouped = $dealers->groupBy('territory');
+
+        return view('pages.find-dealer', compact('grouped', 'districts', 'district'));
     }
 }
