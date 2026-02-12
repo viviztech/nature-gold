@@ -31,7 +31,7 @@
                 <img src="{{ asset('images/logos/logo.png') }}"
                      srcset="{{ asset('images/logos/logo.png') }} 1x, {{ asset('images/logos/logo@2x.png') }} 2x"
                      alt="{{ config('app.name', 'Nature Gold') }}"
-                     class="h-12 sm:h-14 w-auto">
+                     class="h-14 lg:h-16 w-auto">
             </a>
 
             {{-- Desktop Navigation --}}
