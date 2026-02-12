@@ -72,11 +72,13 @@ class DealerResource extends Resource
                             ->schema([
                                 Forms\Components\FileUpload::make('gst_certificate')
                                     ->label('GST Certificate')
+                                    ->disk('public')
                                     ->directory('dealers/documents')
                                     ->acceptedFileTypes(['application/pdf', 'image/*']),
 
                                 Forms\Components\FileUpload::make('trade_license')
                                     ->label('Trade License')
+                                    ->disk('public')
                                     ->directory('dealers/documents')
                                     ->acceptedFileTypes(['application/pdf', 'image/*']),
                             ]),

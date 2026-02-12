@@ -83,6 +83,7 @@ class ProductResource extends Resource
                                         Forms\Components\FileUpload::make('image_path')
                                             ->label('Image')
                                             ->image()
+                                            ->disk('public')
                                             ->directory('products')
                                             ->required()
                                             ->imageResizeMode('cover')

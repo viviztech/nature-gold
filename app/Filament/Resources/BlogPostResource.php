@@ -71,6 +71,7 @@ class BlogPostResource extends Resource
                     ->schema([
                         Forms\Components\FileUpload::make('featured_image')
                             ->image()
+                            ->disk('public')
                             ->directory('blog')
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('16:9')

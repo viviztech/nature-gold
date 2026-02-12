@@ -14,12 +14,23 @@ use App\Models\Setting;
 use App\Models\ShippingZone;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Copy seed images into the public storage disk
+        $seedImagesPath = database_path('seeders/images');
+        if (File::isDirectory($seedImagesPath)) {
+            foreach (File::allFiles($seedImagesPath) as $file) {
+                $relativePath = $file->getRelativePathname();
+                Storage::disk('public')->put($relativePath, File::get($file->getRealPath()));
+            }
+        }
+
         // Admin user
         User::create([
             'name' => 'Nature Gold Admin',

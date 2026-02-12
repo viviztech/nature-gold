@@ -68,6 +68,7 @@ class CategoryResource extends Resource
 
                         Forms\Components\FileUpload::make('image')
                             ->image()
+                            ->disk('public')
                             ->directory('categories')
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('16:9')
