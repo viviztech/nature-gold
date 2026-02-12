@@ -18,6 +18,41 @@ class StorefrontController extends Controller
     {
         $jsonLd = [
             '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => 'Nature Gold Deepam Lamp Oil',
+            'description' => __('shop.deepam_hero_desc'),
+            'brand' => [
+                '@type' => 'Brand',
+                'name' => 'Nature Gold',
+            ],
+            'manufacturer' => [
+                '@type' => 'Organization',
+                'name' => 'Nature Care FMCG Products',
+            ],
+        ];
+
+        $products = [
+            [
+                'size' => '200ml',
+                'image' => asset('images/products/deepam-oil-200ml.png'),
+            ],
+            [
+                'size' => '500ml',
+                'image' => asset('images/products/deepam-oil-500ml.png'),
+            ],
+            [
+                'size' => '1000ml',
+                'image' => asset('images/products/deepam-oil-1000ml.png'),
+            ],
+        ];
+
+        return view('pages.home', compact('products', 'jsonLd'));
+    }
+
+    public function upcomingProducts()
+    {
+        $jsonLd = [
+            '@context' => 'https://schema.org',
             '@type' => 'Organization',
             'name' => 'Nature Gold',
             'description' => __('shop.seo_home_description'),
@@ -56,7 +91,7 @@ class StorefrontController extends Controller
                 ->get()
         );
 
-        return view('pages.home', compact('banners', 'categories', 'featuredProducts', 'bestSellers', 'jsonLd'));
+        return view('pages.upcoming-products', compact('banners', 'categories', 'featuredProducts', 'bestSellers', 'jsonLd'));
     }
 
     public function about()

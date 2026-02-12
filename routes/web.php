@@ -30,6 +30,7 @@ Route::get('/contact', [StorefrontController::class, 'contact'])->name('contact'
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:3,60')->name('contact.submit');
 Route::get('/page/{slug}', [StorefrontController::class, 'page'])->name('page.show');
 Route::get('/find-dealer', [StorefrontController::class, 'findDealer'])->name('find-dealer');
+Route::get('/upcoming-products', [StorefrontController::class, 'upcomingProducts'])->name('upcoming-products');
 
 // Cart & Checkout
 Route::get('/cart', CartPage::class)->name('cart');

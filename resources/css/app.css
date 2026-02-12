@@ -6,34 +6,36 @@
 @source '../**/*.js';
 
 @theme {
-    /* Nature Gold Brand Colors */
-    --color-gold: #D4A017;
-    --color-gold-50: #FFF9E6;
-    --color-gold-100: #FFF0BF;
-    --color-gold-200: #FFE599;
-    --color-gold-300: #FFD966;
-    --color-gold-400: #F5C842;
-    --color-gold-500: #D4A017;
-    --color-gold-600: #B8860B;
-    --color-gold-700: #9A7209;
-    --color-gold-800: #7C5B07;
-    --color-gold-900: #5E4505;
+    /* Nature Gold Brand Colors — aligned to logo */
+    /* Gold (Orange): logo "gold" text #F27436 */
+    --color-gold: #F27436;
+    --color-gold-50: #FDF3EE;
+    --color-gold-100: #FCE5DA;
+    --color-gold-200: #FAD2BE;
+    --color-gold-300: #F8B99A;
+    --color-gold-400: #F59668;
+    --color-gold-500: #F27436;
+    --color-gold-600: #C65F2C;
+    --color-gold-700: #9D4B23;
+    --color-gold-800: #743719;
+    --color-gold-900: #4D2511;
 
-    --color-nature: #2D6A2E;
-    --color-nature-50: #E8F5E9;
-    --color-nature-100: #C8E6C9;
-    --color-nature-200: #A5D6A7;
-    --color-nature-300: #81C784;
-    --color-nature-400: #66BB6A;
-    --color-nature-500: #4CAF50;
-    --color-nature-600: #2D6A2E;
-    --color-nature-700: #1B5E20;
-    --color-nature-800: #145218;
-    --color-nature-900: #0D3B10;
+    /* Nature (Teal): logo "nature" text #40999A */
+    --color-nature: #40999A;
+    --color-nature-50: #EFF6F6;
+    --color-nature-100: #DCECEC;
+    --color-nature-200: #C1DEDE;
+    --color-nature-300: #9FCCCC;
+    --color-nature-400: #6FB2B3;
+    --color-nature-500: #40999A;
+    --color-nature-600: #347D7E;
+    --color-nature-700: #296364;
+    --color-nature-800: #1E4949;
+    --color-nature-900: #143031;
 
-    --color-cream: #FFF8E7;
-    --color-cream-dark: #F5F0EB;
-    --color-warm-white: #FFFDF7;
+    --color-cream: #FFF5EE;
+    --color-cream-dark: #F5EFEA;
+    --color-warm-white: #FFFCF9;
 
     /* Typography */
     --font-heading: 'Poppins', ui-sans-serif, system-ui, sans-serif;
