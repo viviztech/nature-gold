@@ -2,7 +2,7 @@
     {{-- Newsletter Section --}}
     <div class="bg-gold-600">
         <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
+            <div class="text-center md:text-left">
                 <h3 class="font-heading text-xl font-bold text-white">{{ __('shop.newsletter_title') }}</h3>
                 <p class="text-gold-100 text-sm mt-1">{{ __('shop.newsletter_subtitle') }}</p>
             </div>
