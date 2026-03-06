@@ -1,0 +1,27 @@
+name: Deploy Nature Gold to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: 51.21.196.208       
+        username: ubuntu          
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          mkdir -p ~/nature-gold
+          cd ~/nature-gold
+          git pull origin main || git clone https://github.com/viviztech/nature-gold.git .
+          docker-compose down
+          docker-compose up -d --build
